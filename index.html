@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="nb">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Migrenelogg</title>
+<meta name="description" content="Enkel logg for migreneanfall - tidspunkt, styrke og varighet.">
+
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="theme-color" content="#f2f2f7" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#141418" media="(prefers-color-scheme: dark)">
+<meta name="color-scheme" content="light dark">
+
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Migrene">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon-180.png">
+<link rel="icon" href="icons/icon-192.png">
+
+<link rel="stylesheet" href="css/app.css">
+</head>
+<body>
+
+<header class="app-header">
+  <h1 id="view-title">Logg</h1>
+</header>
+
+<main id="view" class="view" tabindex="-1"></main>
+
+<nav class="tabbar" aria-label="Hovednavigasjon">
+  <button type="button" class="tab" data-view="logg" aria-current="page">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 3h11l4 4v14a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1z"/><path d="M15 3v5h5"/><path d="M8 13h8M8 17h5"/></svg>
+    <span>Logg</span>
+  </button>
+  <button type="button" class="tab" data-view="statistikk">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>
+    <span>Statistikk</span>
+  </button>
+  <button type="button" class="tab" data-view="innstillinger">
+    <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M12 2v3M12 19v3M4.2 4.2l2.1 2.1M17.7 17.7l2.1 2.1M2 12h3M19 12h3M4.2 19.8l2.1-2.1M17.7 6.3l2.1-2.1"/></svg>
+    <span>Innstillinger</span>
+  </button>
+</nav>
+
+<dialog id="attack-dialog" class="sheet" aria-labelledby="dialog-title">
+  <form id="attack-form" method="dialog">
+    <div class="sheet-bar">
+      <button type="button" class="link-btn" data-action="cancel">Avbryt</button>
+      <h2 id="dialog-title">Nytt anfall</h2>
+      <button type="submit" class="link-btn strong">Lagre</button>
+    </div>
+
+    <div class="sheet-body">
+      <p id="form-error" class="form-error" role="alert" hidden></p>
+
+      <div class="field">
+        <label for="f-start">Startet</label>
+        <input type="datetime-local" id="f-start" name="start" required>
+      </div>
+
+      <div class="field field-row">
+        <label for="f-ongoing">Pågår fortsatt</label>
+        <input type="checkbox" id="f-ongoing" name="ongoing" class="switch">
+      </div>
+
+      <div class="field" id="end-field">
+        <label for="f-end">Sluttet</label>
+        <input type="datetime-local" id="f-end" name="end">
+      </div>
+
+      <div class="field">
+        <label for="f-intensity">Styrke</label>
+        <div class="slider-head">
+          <span class="slider-value" id="f-intensity-value">5</span>
+          <span class="slider-label" id="f-intensity-label">moderat</span>
+        </div>
+        <input type="range" id="f-intensity" name="intensity" min="1" max="10" step="1" value="5"
+               aria-describedby="f-intensity-label">
+        <div class="slider-scale" aria-hidden="true"><span>1</span><span>10</span></div>
+      </div>
+
+      <div class="field">
+        <label for="f-note">Notat</label>
+        <textarea id="f-note" name="note" rows="3" placeholder="Valgfritt"></textarea>
+      </div>
+
+      <button type="button" class="btn danger" id="delete-btn" hidden>Slett anfall</button>
+    </div>
+  </form>
+</dialog>
+
+<input type="file" id="import-input" accept="application/json,.json" hidden>
+
+<script type="module" src="js/app.js"></script>
+</body>
+</html>
